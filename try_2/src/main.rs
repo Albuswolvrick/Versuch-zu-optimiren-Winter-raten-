@@ -7,6 +7,9 @@
 // image = "0.24"
 // simple_excel_writer = "0.2"
 
+//mod other .rs file ; //this is for when ading a newe rs file
+
+
 use eframe::egui;
 use rusqlite::{Connection, Result as SqlResult};
 use rand::Rng;
@@ -100,7 +103,7 @@ struct MyApp {
 impl MyApp {
     fn new(cc: &eframe::CreationContext<'_>) -> Self {
         let mut rng = rand::thread_rng();
-        let snowflakes: Vec<Snowflake> = (0..150)
+        let snowflakes: Vec<Snowflake> = (0..500)
             .map(|_| Snowflake {
                 x: rng.gen_range(0.0..1.0),
                 y: rng.gen_range(-0.8..0.0),
@@ -129,7 +132,7 @@ impl MyApp {
     }
 
     fn load_background_image(ctx: &egui::Context) -> Option<egui::TextureHandle> {
-        let img_path = std::path::Path::new("./main/img/background.png");
+        let img_path = std::path::Path::new("/img/p4.jpg");
 
         if let Ok(img) = image::open(img_path) {
             let img_buffer = img.to_rgba8();
@@ -147,7 +150,7 @@ impl MyApp {
                 egui::TextureOptions::LINEAR,
             ))
         } else {
-            eprintln!("Warning: Could not load background image from ./main/img/background.png");
+            eprintln!("Warning: Could not load background image from /img/p4.jpg");
             None
         }
     }
@@ -231,7 +234,7 @@ impl eframe::App for MyApp {
 
         ctx.request_repaint();
 
-        // Dev window toggle with Ctrl+D
+        // Dev window toggle with Ctrl+shift+D
         if ctx.input(|i| i.key_pressed(egui::Key::D) && i.modifiers.ctrl) {
             self.dev_window.open = !self.dev_window.open;
         }
@@ -244,7 +247,7 @@ impl eframe::App for MyApp {
                 .show(ctx, |ui| {
                     ui.label("Maximum Number Setting:");
                     ui.text_edit_singleline(&mut self.dev_window.max_number);
-                    ui.label("Press Ctrl+D to toggle this window");
+                    //  ui.label("Press Ctrl+D to toggle this window");
                     ui.add_space(10.0);
                     ui.separator();
 
@@ -321,7 +324,7 @@ impl eframe::App for MyApp {
                 .fixed_size(egui::vec2(form_width, form_height))
                 .show(ctx, |ui| {
                     ui.vertical_centered(|ui| {
-                        ui.heading("❄️ Register ❄️");
+                        ui.heading("Register");
                         ui.add_space(10.0);
                     });
 
@@ -376,7 +379,7 @@ impl eframe::App for MyApp {
                     ui.separator();
                     ui.vertical_centered(|ui| {
                         ui.small("Developed by Pierre Maurice Hesse");
-                        ui.small("Press Ctrl+D for dev settings");
+                        // ui.small("Press Ctrl+D for dev settings");
                     });
                 });
         });
