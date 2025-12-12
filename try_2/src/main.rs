@@ -221,7 +221,7 @@ impl MyApp {
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         let screen_rect = ctx.screen_rect();
-        let screen_height = screen_rect.height();
+        let _screen_height = screen_rect.height();
 
         // Update snowflakes
         for flake in &mut self.snowflakes {
@@ -245,7 +245,7 @@ impl eframe::App for MyApp {
             egui::Window::new("Developer Settings")
                 .open(&mut dev_open)
                 .show(ctx, |ui| {
-                    ui.label("Maximum Number Setting:");
+                    ui.label("set Number:");
                     ui.text_edit_singleline(&mut self.dev_window.max_number);
                     //  ui.label("Press Ctrl+D to toggle this window");
                     ui.add_space(10.0);
