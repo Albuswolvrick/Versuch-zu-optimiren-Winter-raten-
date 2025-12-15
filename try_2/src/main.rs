@@ -125,16 +125,19 @@ impl Database {
     }
 }
 
-struct DevWindow {
+struct DevWindow
+{
     open: bool,
     max_number: String,
 }
 
-struct TableWindow {
+struct TableWindow
+{
     open: bool,
 }
 
-struct MyApp {
+struct MyApp
+{
     first_name: String,
     surname: String,
     email: String,
@@ -148,7 +151,8 @@ struct MyApp {
     export_message: String,
 }
 
-impl MyApp {
+impl MyApp
+{
     fn new(cc: &eframe::CreationContext<'_>) -> Self {
         let mut rng = rand::thread_rng();
         let snowflakes: Vec<Snowflake> = (0..300)
@@ -217,12 +221,14 @@ impl MyApp {
         None
     }
 
-    fn export_to_excel(&self) -> Result<String, String> {
+    fn export_to_excel(&self) -> Result<String, String>
+    {
         let db = self.database.lock().unwrap();
         let users = db.get_all_users()
             .map_err(|e| format!("Database error: {}", e))?;
 
-        if users.is_empty() {
+        if users.is_empty()
+        {
             return Err("No data to export!".to_string());
         }
 
@@ -242,20 +248,29 @@ impl MyApp {
         sheet.add_column(Column { width: 12.0 });
         sheet.add_column(Column { width: 10.0 });
 
-        workbook.write_sheet(&mut sheet, |sheet_writer| {
-            let sw = sheet_writer;
+        workbook.write_sheet(&mut sheet, |sheet_writer|
+            {
+                let sw = sheet_writer;
 
-            sw.append_row(row![
-                "ID",
-                "First Name",
-                "Surname",
-                "Email",
-                "Number",
-                "Winner"
-            ])?;
+                sw.append_row
+                (
+                    row!
+                    [
+                        "ID",
+                        "First Name",
+                        "Surname",
+                        "Email",
+                        "Number",
+                        "Winner"
+                    ]
+                )?;
 
-            for user in users.iter() {
-                sw.append_row(row![
+            for user in users.iter()
+            {
+                sw.append_row
+                (
+                    row!
+                    [
                     user.id.to_string(),
                     user.first_name.clone(),
                     user.surname.clone(),
