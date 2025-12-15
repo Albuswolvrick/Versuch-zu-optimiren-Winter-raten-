@@ -307,7 +307,7 @@ impl eframe::App for MyApp {
         // side Movment
         for flake in &mut self.snowflakes
         {
-            flake.x += flake.side_toside_speed;
+            flake.x -= flake.side_toside_speed;
             if flake.y > 1.1
             {
                 flake.y = -0.1;
