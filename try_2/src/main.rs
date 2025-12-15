@@ -23,40 +23,49 @@ struct Snowflake {
     speed: f32,
     size: f32,
 }
-
+// creates the srings and bools
 #[derive(Debug, Clone)]
-struct User {
+struct User
+{
     id: i32,
     first_name: String,
     surname: String,
     email: String,
     number: String,
+    winner: bool,
 }
 
-struct Database {
+struct Database
+{
     conn: Connection,
 }
-
-impl Database {
-    fn new() -> SqlResult<Self> {
+//creates the database
+impl Database
+{
+    fn new() -> SqlResult<Self>
+    {
         let conn = Connection::open_in_memory()?;
-        conn.execute(
+        conn.execute
+        (
             "CREATE TABLE users (
                 id INTEGER PRIMARY KEY,
                 first_name TEXT NOT NULL,
                 surname TEXT NOT NULL,
                 email TEXT NOT NULL,
-                number TEXT NOT NULL
+                number TEXT NOT NULL,
+                winner Bool NOT NULL
             )",
             [],
         )?;
         Ok(Database { conn })
     }
-
-    fn insert_user(&self, first: &str, surname: &str, email: &str, number: &str) -> SqlResult<()> {
-        self.conn.execute(
-            "INSERT INTO users (first_name, surname, email, number) VALUES (?1, ?2, ?3, ?4)",
-            [first, surname, email, number],
+//Imputs text to database
+    fn insert_user(&self, firstname: &str, surname: &str, email: &str, number: &str,) -> SqlResult<()>
+     {
+        self.conn.execute
+        (
+            "INSERT INTO users (first_name, surname, email, number, Winner) VALUES (?1, ?2, ?3, ?4)",
+            [firstname, surname, email, number ],
         )?;
         Ok(())
     }
@@ -66,7 +75,7 @@ impl Database {
         let mut stmt = self.conn.prepare(
             "SELECT id, first_name, surname, email, number FROM users ORDER BY id"
         )?;
-
+// gets the data to imput
         let users = stmt.query_map([], |row| {
             Ok(User {
                 id: row.get(0)?,
@@ -74,6 +83,8 @@ impl Database {
                 surname: row.get(2)?,
                 email: row.get(3)?,
                 number: row.get(4)?,
+                winner: row.get(5)?,
+
             })
         })?
             .collect::<Result<Vec<_>, _>>()?;
@@ -114,16 +125,18 @@ impl MyApp {
 
         let background_texture = Self::load_background_image(&cc.egui_ctx);
 
-        Self {
+        Self
+        {
             first_name: String::new(),
             surname: String::new(),
             email: String::new(),
             number: String::new(),
             snowflakes,
             database: Arc::new(Mutex::new(Database::new().unwrap())),
-            dev_window: DevWindow {
+            dev_window: DevWindow
+            {
                 open: false,
-                max_number: "100".to_string(),
+                max_number: "300".to_string(),
             },
             message: String::new(),
             background_texture,
