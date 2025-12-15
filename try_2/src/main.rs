@@ -296,6 +296,7 @@ impl MyApp
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         // Update snowflakes
+        // down movment
         for flake in &mut self.snowflakes {
             flake.y += flake.speed;
             if flake.y > 1.1 {
@@ -303,6 +304,7 @@ impl eframe::App for MyApp {
                 flake.x = rand::thread_rng().gen_range(0.0..1.0);
             }
         }
+        // side Movment
         for flake in &mut self.snowflakes
         {
             flake.x += flake.side_toside_speed;
@@ -312,7 +314,7 @@ impl eframe::App for MyApp {
                 flake.x =rand::thread_rng().gen_range(0.0..10.)
             }
         }
-        // I do not know how to ad ad side to side movment please add when posible and push
+
 
         ctx.request_repaint();
 
