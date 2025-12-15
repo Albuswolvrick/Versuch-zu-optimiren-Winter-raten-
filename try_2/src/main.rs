@@ -44,7 +44,7 @@ impl Database {
                 id INTEGER PRIMARY KEY,
                 first_name TEXT NOT NULL,
                 surname TEXT NOT NULL,
-                email TEXT NOT NULL,
+                email TEXT  NULL,
                 number INTEGER NOT NULL,
                 winner INTEGER NOT NULL DEFAULT 0
             )",
@@ -311,7 +311,7 @@ impl eframe::App for MyApp {
             if flake.y > 1.1
             {
                 flake.y = -0.1;
-                flake.x =rand::thread_rng().gen_range(0.0..10.)
+                flake.x =rand::thread_rng().gen_range(0.0..1.0)
             }
         }
 
