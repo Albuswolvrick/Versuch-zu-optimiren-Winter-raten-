@@ -18,6 +18,8 @@ struct Snowflake {
     x: f32,
     y: f32,
     speed: f32,
+    side_toside_speed: f32,
+    side_to_side_range:f32,
     size: f32,
 }
 
@@ -161,6 +163,8 @@ impl MyApp
                 y: rng.gen_range(-0.8..0.0),
                 speed: rng.gen_range(0.001..0.0025),
                 size: rng.gen_range(2.0..11.0),
+                side_to_side_range:rng.gen_range(2.0..11.0),
+                side_toside_speed:rng.gen_range(0.001..0.0025),
             })
             .collect();
 
@@ -301,6 +305,7 @@ impl eframe::App for MyApp {
                 flake.x = rand::thread_rng().gen_range(0.0..1.0);
             }
         }
+        // I do not know how to ad ad side to side movment please add when posible and push 
 
         ctx.request_repaint();
 
