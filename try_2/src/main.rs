@@ -155,12 +155,12 @@ impl MyApp
 {
     fn new(cc: &eframe::CreationContext<'_>) -> Self {
         let mut rng = rand::thread_rng();
-        let snowflakes: Vec<Snowflake> = (0..300)
+        let snowflakes: Vec<Snowflake> = (0..500) // einstelung der Geschwindikeit menge und Gröze der Flocken
             .map(|_| Snowflake {
                 x: rng.gen_range(0.0..1.0),
                 y: rng.gen_range(-0.8..0.0),
-                speed: rng.gen_range(0.001..0.003),
-                size: rng.gen_range(2.0..5.0),
+                speed: rng.gen_range(0.001..0.0025),
+                size: rng.gen_range(2.0..11.0),
             })
             .collect();
 
@@ -187,6 +187,8 @@ impl MyApp
     }
 
     fn load_background_image(ctx: &egui::Context) -> Option<egui::TextureHandle> {
+        // why wont it ucking Load
+        // fixed it
         let possible_paths = vec![
             "src/img/p4.jpg",
             "img/p4.jpg",
@@ -484,7 +486,7 @@ impl eframe::App for MyApp {
                 let form_width = (rect.width() * 0.35).clamp(280.0, 400.0);
                 let form_height = (rect.height() * 0.5).clamp(280.0, 350.0);
 
-                // Registrierungsformular mit Transparenz
+                // Registrierungsformular muss Transparenz komisches Vireck invordergrung
                 egui::Window::new("Winter Registration")
                     .fixed_pos(egui::pos2(
                         rect.center().x - form_width / 2.0,
@@ -493,9 +495,9 @@ impl eframe::App for MyApp {
                     .fixed_size(egui::vec2(form_width, form_height))
                     .collapsible(false)
                     .frame(egui::Frame {
-                        fill: egui::Color32::from_rgba_unmultiplied(30, 30, 35, 180), // Hier die Transparenz ändern (0-255)
+                        fill: egui::Color32::from_rgba_unmultiplied(30, 30, 35, 50), // Hier kann die  Transparenz geändert werden (0-255)
                         rounding: egui::Rounding::same(10.0),
-                        stroke: egui::Stroke::new(1.0, egui::Color32::from_rgba_unmultiplied(255, 255, 255, 40)),
+                       // stroke: egui::Stroke::new(1.0, egui::Color32::from_rgba_unmultiplied(255, 255, 0, 255)),// eine Umrandung wenn die gewolt wird
                         inner_margin: egui::Margin::same(15.0),
                         ..Default::default()
                     })
